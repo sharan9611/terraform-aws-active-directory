@@ -2,6 +2,8 @@
 output "directory_id" {
   value = join("", aws_workspaces_directory.main.*.id)
 }
-//output "s" {
-//  value = join("", aws_workspaces_directory.main.*.customer_user_name)
-//}
+
+output "directory_name" {
+  value       = join("", aws_directory_service_directory.main.*.name)
+  description = "directory name."
+}

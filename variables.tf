@@ -32,7 +32,7 @@ variable "attributes" {
 
 variable "repository" {
   type        = string
-  default     = ""
+  default     = "https://github.com/clouddrove/terraform-aws-active-directory"
   description = "Terraform current module repo"
 }
 
