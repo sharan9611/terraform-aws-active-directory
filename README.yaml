@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name : Terraform AWS ECR
+name : Terraform AWS Active Directory
 
 # License of this project
 license: "MIT"
