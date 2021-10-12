@@ -48,6 +48,7 @@ resource "aws_workspaces_directory" "main" {
     device_type_web        = var.device_type_web
     device_type_windows    = var.device_type_windows
     device_type_zeroclient = var.device_type_zeroclient
+    device_type_linux      = var.device_type_linux
   }
 
   workspace_creation_properties {
@@ -66,15 +67,38 @@ resource "aws_workspaces_directory" "main" {
 #Module      : Active Directory
 #Description : Terraform module to create AWS Active Directory.
 resource "aws_directory_service_directory" "main" {
-  count    = var.enabled ? 1 : 0
-  name     = var.ad_name
-  password = var.ad_password
-  size     = var.ad_size
+  count       = var.enabled ? 1 : 0
+  name        = var.ad_name
+  password    = var.ad_password
+  size        = var.ad_size
+  type        = var.type
+  alias       = var.alias
+  enable_sso  = var.enable_sso
+  description = var.description
+  short_name  = var.short_name
+  edition     = var.edition
+  tags        = module.labels.tags
 
-  vpc_settings {
-    vpc_id     = var.vpc_id
-    subnet_ids = var.subnet_ids
+  dynamic "vpc_settings" {
+    for_each = length(keys(var.vpc_settings)) == 0 ? [] : [var.vpc_settings]
+
+    content {
+      subnet_ids = split(",", lookup(vpc_settings.value, "subnet_ids", null))
+      vpc_id     = lookup(vpc_settings.value, "vpc_id", null)
+    }
   }
+
+  dynamic "connect_settings" {
+    for_each = length(keys(var.connect_settings)) == 0 ? [] : [var.connect_settings]
+
+    content {
+      customer_username = lookup(connect_settings.value, "customer_username", null)
+      customer_dns_ips  = lookup(connect_settings.value, "customer_dns_ips", null)
+      subnet_ids        = split(",", lookup(connect_settings.value, "subnet_ids", null))
+      vpc_id            = lookup(connect_settings.value, "vpc_id", null)
+    }
+  }
+
 }
 
 data "aws_iam_policy_document" "workspaces" {
@@ -130,4 +154,3 @@ resource "aws_workspaces_ip_group" "ipgroup" {
     }
   }
 }
-
