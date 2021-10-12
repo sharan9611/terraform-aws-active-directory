@@ -7,7 +7,7 @@
     Terraform AWS Active Directory
 </h1>
 
-<p align="center" style="font-size: 1.2rem;">
+<p align="center" style="font-size: 1.2rem;"> 
     Get attributes of AWS Directory Service directory (SimpleAD, Managed AD, AD Connector). It's especially useful to refer AWS Managed AD or on-premise AD in AD Connector configuration.
      </p>
 
@@ -38,7 +38,7 @@
 <hr>
 
 
-We eat, drink, sleep and most importantly love **DevOps**. We are working towards strategies for standardizing architecture while ensuring security for the infrastructure. We are strong believer of the philosophy <b>Bigger problems are always solved by breaking them into smaller manageable problems</b>. Resonating with microservices architecture, it is considered best-practice to run database, cluster, storage in smaller <b>connected yet manageable pieces</b> within the infrastructure.
+We eat, drink, sleep and most importantly love **DevOps**. We are working towards strategies for standardizing architecture while ensuring security for the infrastructure. We are strong believer of the philosophy <b>Bigger problems are always solved by breaking them into smaller manageable problems</b>. Resonating with microservices architecture, it is considered best-practice to run database, cluster, storage in smaller <b>connected yet manageable pieces</b> within the infrastructure. 
 
 This module is basically combination of [Terraform open source](https://www.terraform.io/) and includes automatation tests and examples. It also helps to create and improve your infrastructure with minimalistic code instead of maintaining the whole infrastructure code yourself.
 
@@ -49,7 +49,7 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 
 ## Prerequisites
 
-This module has a few dependencies:
+This module has a few dependencies: 
 
 - [Terraform 0.15](https://learn.hashicorp.com/terraform/getting-started/install.html)
 - [Go](https://golang.org/doc/install)
@@ -95,18 +95,24 @@ Here is an example of how you can use this module in your inventory structure:
 | ad\_name | The fully qualified name for the directory, such as corp.example.com | `string` | `"corp.example.com"` | no |
 | ad\_password | The password for the directory administrator or connector user. | `string` | `"xyzsf58f5fqar"` | no |
 | ad\_size | The size of the directory (Small or Large are accepted values). | `string` | `"Small"` | no |
+| alias | The directory type (SimpleAD, ADConnector or MicrosoftAD are accepted values). | `string` | `""` | no |
 | attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
 | change\_compute\_type | Whether WorkSpaces directory users can change the compute type (bundle) for their workspace. | `bool` | `true` | no |
+| connect\_settings | (Required for ADConnector) Connector related information about the directory. Fields documented below. | `map(string)` | `{}` | no |
 | custom\_policy | Custom policy ARN | `string` | `""` | no |
+| description | A textual description for the directory. | `string` | `""` | no |
 | device\_type\_android | Indicates whether users can use Android devices to access their WorkSpaces. | `string` | `"ALLOW"` | no |
 | device\_type\_chromeos | Indicates whether users can use Chromebooks to access their WorkSpaces. | `string` | `"ALLOW"` | no |
 | device\_type\_ios | Indicates whether users can use iOS devices to access their WorkSpaces. | `string` | `"ALLOW"` | no |
+| device\_type\_linux | Indicates whether users can use Linux devices to access their WorkSpaces. | `string` | `"ALLOW"` | no |
 | device\_type\_osx | Indicates whether users can use macOS clients to access their WorkSpaces. | `string` | `"ALLOW"` | no |
 | device\_type\_web | Indicates whether users can access their WorkSpaces through a web browser. | `string` | `"ALLOW"` | no |
 | device\_type\_windows | Indicates whether users can use Windows clients to access their WorkSpaces. | `string` | `"ALLOW"` | no |
 | device\_type\_zeroclient | Indicates whether users can use zero client devices to access their WorkSpaces. | `string` | `"ALLOW"` | no |
+| edition | The MicrosoftAD edition (Standard or Enterprise). | `string` | `"Standard"` | no |
 | enable\_internet\_access | Indicates whether internet access is enabled for your WorkSpaces. | `bool` | `false` | no |
 | enable\_maintenance\_mode | Indicates whether maintenance mode is enabled for your WorkSpaces. | `bool` | `false` | no |
+| enable\_sso | Whether to enable single-sign on for the directory. Requires alias. | `bool` | `false` | no |
 | enabled | Flag to control the module creation. | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
 | increase\_volume\_size | Whether WorkSpaces directory users can increase the volume size of the drives on their workspace. | `bool` | `true` | no |
@@ -117,10 +123,12 @@ Here is an example of how you can use this module in your inventory structure:
 | rebuild\_workspace | Whether WorkSpaces directory users can rebuild the operating system of a workspace to its original state. | `bool` | `true` | no |
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-active-directory"` | no |
 | restart\_workspace | Whether WorkSpaces directory users can restart their workspace. | `bool` | `true` | no |
+| short\_name | The short name of the directory, such as CORP. | `string` | `""` | no |
 | subnet\_ids | List of subnets in VPC | `list(string)` | `null` | no |
 | switch\_running\_mode | Whether WorkSpaces directory users can switch the running mode of their workspace. | `bool` | `true` | no |
+| type | The directory type (SimpleAD, ADConnector or MicrosoftAD are accepted values). | `string` | `"SimpleAD"` | no |
 | user\_enabled\_as\_local\_administrator | Indicates whether users are local administrators of their WorkSpaces. | `bool` | `false` | no |
-| vpc\_id | VPC ID | `any` | `null` | no |
+| vpc\_settings | (Required for SimpleAD and MicrosoftAD) VPC related information about the directory. Fields documented below. | `map(string)` | `{}` | no |
 
 ## Outputs
 
@@ -133,7 +141,7 @@ Here is an example of how you can use this module in your inventory structure:
 
 
 ## Testing
-In this module testing is performed with [terratest](https://github.com/gruntwork-io/terratest) and it creates a small piece of infrastructure, matches the output like ARN, ID and Tags name etc and destroy infrastructure in your AWS account. This testing is written in GO, so you need a [GO environment](https://golang.org/doc/install) in your system.
+In this module testing is performed with [terratest](https://github.com/gruntwork-io/terratest) and it creates a small piece of infrastructure, matches the output like ARN, ID and Tags name etc and destroy infrastructure in your AWS account. This testing is written in GO, so you need a [GO environment](https://golang.org/doc/install) in your system. 
 
 You need to run the following command in the testing folder:
 ```hcl
@@ -142,7 +150,7 @@ You need to run the following command in the testing folder:
 
 
 
-## Feedback
+## Feedback 
 If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-aws-active-directory/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
 If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-aws-active-directory)!
