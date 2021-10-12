@@ -82,7 +82,7 @@ resource "aws_directory_service_directory" "main" {
     for_each = length(keys(var.vpc_settings)) == 0 ? [] : [var.vpc_settings]
 
     content {
-      subnet_ids = lookup(vpc_settings.value, "subnet_ids", null)
+      subnet_ids = split(",", lookup(vpc_settings.value, "subnet_ids", null))
       vpc_id     = lookup(vpc_settings.value, "vpc_id", null)
     }
   }
@@ -93,7 +93,7 @@ resource "aws_directory_service_directory" "main" {
     content {
       customer_username = lookup(connect_settings.value, "customer_username", null)
       customer_dns_ips  = lookup(connect_settings.value, "customer_dns_ips", null)
-      subnet_ids        = lookup(connect_settings.value, "subnet_ids", null)
+      subnet_ids        = split(",", lookup(connect_settings.value, "subnet_ids", null))
       vpc_id            = lookup(connect_settings.value, "vpc_id", null)
     }
   }

@@ -44,14 +44,14 @@ variable "enabled" {
 }
 
 variable "vpc_settings" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "(Required for SimpleAD and MicrosoftAD) VPC related information about the directory. Fields documented below."
 
 }
 
 variable "connect_settings" {
-  type        = map
+  type        = map(string)
   default     = {}
   description = "(Required for ADConnector) Connector related information about the directory. Fields documented below."
 
