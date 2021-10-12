@@ -34,7 +34,7 @@ module "ad" {
   name         = "adclouddrove"
   label_order  = ["name", "environment"]
   subnet_ids   = module.subnets.public_subnet_id
-  vpc_settings = {vpc_id : module.vpc.vpc_id, subnet_ids : join(",",module.subnets.public_subnet_id)}
+  vpc_settings = { vpc_id : module.vpc.vpc_id, subnet_ids : join(",", module.subnets.public_subnet_id) }
   ad_name      = "clouddrovepoc.example.com"
   ad_password  = "xyz123@abc"
   ip_whitelist = ["51.79.69.69/32"]
