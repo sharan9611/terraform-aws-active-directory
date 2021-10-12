@@ -130,6 +130,12 @@ variable "device_type_android" {
   description = " Indicates whether users can use Android devices to access their WorkSpaces."
 }
 
+variable "device_type_linux" {
+  default     = "ALLOW"
+  type        = string
+  description = " Indicates whether users can use Linux devices to access their WorkSpaces."
+}
+
 variable "device_type_chromeos" {
   default     = "ALLOW"
   type        = string

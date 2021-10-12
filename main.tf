@@ -48,6 +48,7 @@ resource "aws_workspaces_directory" "main" {
     device_type_web        = var.device_type_web
     device_type_windows    = var.device_type_windows
     device_type_zeroclient = var.device_type_zeroclient
+    device_type_linux      = var.device_type_linux
   }
 
   workspace_creation_properties {
