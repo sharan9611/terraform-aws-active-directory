@@ -35,7 +35,7 @@ jobs:
         continue-on-error: true
 
       - name: 'push readme'
-        uses: 'clouddrove/github-actions@v9.0.1'
+        uses: 'clouddrove/github-actions@master'
         continue-on-error: true
         with:
           actions_subcommand: 'push'
