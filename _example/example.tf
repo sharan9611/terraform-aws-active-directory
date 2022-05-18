@@ -5,7 +5,7 @@ provider "aws" {
 }
 module "vpc" {
   source  = "clouddrove/vpc/aws"
-  version = "0.15.0"
+  version = "0.15.1"
 
   name        = "vpc"
   environment = "test"
@@ -16,7 +16,7 @@ module "vpc" {
 
 module "subnets" {
   source             = "clouddrove/subnet/aws"
-  version            = "0.15.0"
+  version            = "0.15.3"
   name               = "subnets"
   environment        = "test"
   label_order        = ["name", "environment"]
