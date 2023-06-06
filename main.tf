@@ -1,11 +1,6 @@
-# Managed By : CloudDrove
-# Description : This Script is used to create Active Directory.
-# Copyright @ CloudDrove. All Right Reserved.
-
-#Module      : Label
-#Description : This terraform module is designed to generate consistent label names and tags
-#              for resources. You can use terraform-labels to implement a strict naming
-#              convention.
+##-----------------------------------------------------------------------------
+## Labels module callled that will be used for naming and tags.
+##-----------------------------------------------------------------------------
 module "labels" {
   source  = "clouddrove/labels/aws"
   version = "1.3.0"
@@ -18,8 +13,9 @@ module "labels" {
   label_order = var.label_order
 }
 
-#Module      : AWS Workspaces Directory
-#Description : Terraform module to create AWS WorkSpaces Service.
+##-----------------------------------------------------------------------------
+## Provides a WorkSpaces directory in AWS WorkSpaces Service. NOTE: AWS WorkSpaces service requires workspaces_DefaultRole IAM role to operate normally.
+##-----------------------------------------------------------------------------
 resource "aws_workspaces_directory" "main" {
   count = var.enabled ? 1 : 0
 
@@ -64,8 +60,9 @@ resource "aws_workspaces_directory" "main" {
   ]
 }
 
-#Module      : Active Directory
-#Description : Terraform module to create AWS Active Directory.
+##-----------------------------------------------------------------------------
+## Resource: aws_directory_service_directory. Provides a Simple or Managed Microsoft directory in AWS Directory Service.
+##-----------------------------------------------------------------------------
 resource "aws_directory_service_directory" "main" {
   count       = var.enabled ? 1 : 0
   name        = var.ad_name
@@ -112,14 +109,18 @@ data "aws_iam_policy_document" "workspaces" {
   }
 }
 
-# IAM ROles
-
+##-----------------------------------------------------------------------------
+## aws_iam_role. An IAM role is an AWS Identity and Access Management (IAM) entity with permissions to make AWS service requests.
+##-----------------------------------------------------------------------------
 resource "aws_iam_role" "workspaces_default" {
   count              = var.enabled ? 1 : 0
   name               = format("%s-workspaces_Role", module.labels.id)
   assume_role_policy = data.aws_iam_policy_document.workspaces.json
 }
 
+##-----------------------------------------------------------------------------
+## aws_iam_role_policy_attachment Attaches a Managed IAM Policy to an IAM role.
+##-----------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "workspaces_default_service_access" {
   count      = var.enabled ? 1 : 0
   role       = join("", aws_iam_role.workspaces_default.*.name)
@@ -144,6 +145,9 @@ locals {
   ip_rules = var.ip_whitelist
 }
 
+##-----------------------------------------------------------------------------
+## aws_workspaces_ip_group provides an IP access control group in AWS WorkSpaces Service.
+##-----------------------------------------------------------------------------
 resource "aws_workspaces_ip_group" "ipgroup" {
   count = var.enabled ? 1 : 0
   name  = format("%s-ipgroup", var.name)
