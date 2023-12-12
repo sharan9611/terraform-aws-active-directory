@@ -1,5 +1,3 @@
-#Module      : LABEL
-#Description : Terraform label module variables.
 variable "name" {
   type        = string
   default     = ""
@@ -18,25 +16,12 @@ variable "label_order" {
   description = "Label order, e.g. `name`,`application`."
 }
 
-variable "managedby" {
-  type        = string
-  default     = "anmol@clouddrove.com"
-  description = "ManagedBy, eg 'CloudDrove' or 'AnmolNagpal'."
-}
-
 variable "attributes" {
   type        = list(any)
   default     = []
   description = "Additional attributes (e.g. `1`)."
 }
 
-variable "repository" {
-  type        = string
-  default     = "https://github.com/clouddrove/terraform-aws-active-directory"
-  description = "Terraform current module repo"
-}
-
-#Description : Active Directory Terraform modules variables
 variable "enabled" {
   type        = bool
   default     = true
@@ -105,85 +90,6 @@ variable "increase_volume_size" {
   type        = bool
   description = "Whether WorkSpaces directory users can increase the volume size of the drives on their workspace."
 }
-
-variable "rebuild_workspace" {
-  default     = true
-  type        = bool
-  description = "Whether WorkSpaces directory users can rebuild the operating system of a workspace to its original state."
-}
-
-variable "restart_workspace" {
-  default     = true
-  type        = bool
-  description = "Whether WorkSpaces directory users can restart their workspace."
-}
-
-variable "switch_running_mode" {
-  default     = true
-  type        = bool
-  description = "Whether WorkSpaces directory users can switch the running mode of their workspace."
-}
-
-variable "device_type_android" {
-  default     = "ALLOW"
-  type        = string
-  description = " Indicates whether users can use Android devices to access their WorkSpaces."
-}
-
-variable "device_type_linux" {
-  default     = "ALLOW"
-  type        = string
-  description = " Indicates whether users can use Linux devices to access their WorkSpaces."
-}
-
-variable "device_type_chromeos" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can use Chromebooks to access their WorkSpaces."
-}
-
-variable "device_type_ios" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can use iOS devices to access their WorkSpaces."
-}
-
-variable "device_type_osx" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can use macOS clients to access their WorkSpaces."
-}
-
-variable "device_type_web" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can access their WorkSpaces through a web browser."
-}
-
-variable "device_type_windows" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can use Windows clients to access their WorkSpaces."
-}
-
-variable "device_type_zeroclient" {
-  default     = "ALLOW"
-  type        = string
-  description = "Indicates whether users can use zero client devices to access their WorkSpaces."
-}
-
-variable "enable_maintenance_mode" {
-  default     = false
-  type        = bool
-  description = "Indicates whether maintenance mode is enabled for your WorkSpaces."
-}
-
-variable "user_enabled_as_local_administrator" {
-  default     = false
-  type        = bool
-  description = "Indicates whether users are local administrators of their WorkSpaces."
-}
-
 variable "type" {
   default     = "SimpleAD"
   type        = string
